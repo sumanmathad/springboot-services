@@ -22,7 +22,7 @@ public class SpringBootRestServiceApplication implements CommandLineRunner{
 	public void run(String[] args) {
 		Library library = repository.findById("fdsefr343").get();
 		
-		System.out.println(library.getAuthor());
+		System.out.println(library.getBook_name());
 	}
 
 }
