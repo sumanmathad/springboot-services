@@ -19,7 +19,7 @@ AtomicLong counter = new AtomicLong();
 	
 @GetMapping("/greeting")
 public Greeting greeting(@RequestParam(value="name")String name) {
-	greeting.setContent("Hello "+name+", "+"Thanks for hitting suman API");
+	greeting.setContent("Hello "+name+", "+"Thanks for hitting suman's API");
 	greeting.setId(counter.incrementAndGet());
 	return greeting;
 }

@@ -6,6 +6,6 @@ import com.learn.SpringBootRESTService.Library;
 
 
 
-public interface LibraryRepository extends JpaRepository<Library,String> {
+public interface LibraryRepository extends JpaRepository<Library,String>,LibraryRepositoryCustom {
 
 }
