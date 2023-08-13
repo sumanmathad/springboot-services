@@ -7,11 +7,14 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -71,5 +74,27 @@ public class LibraryController {
 	public List<Library> getBookByAuthorName(@RequestParam(value = "authorname")String authorname) {
 		return repository.findAllByAuthor(authorname);
 	}
+	
+	@PutMapping("/updateBook/{id}")
+	public ResponseEntity<Library> updateBook(@PathVariable (value ="id")String id, @RequestBody Library library) {
+		Library existingBook = repository.findById(id).get();
+		existingBook.setAisle(library.getAisle());
+		existingBook.setBook_name(library.getBook_name());
+		existingBook.setAuthor(library.getAuthor());
+		repository.save(existingBook);
+		
+		return new ResponseEntity<Library>(existingBook,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/deleteBook")
+	public ResponseEntity deleteBookByID(@RequestBody Library library){
+		Library libToDelete	= repository.findById(library.getId()).get();
+			repository.delete(libToDelete);
+			
+		return new ResponseEntity<>("Book is deleted",HttpStatus.CREATED);
+	}
+	
+	
+	
 	
 }
